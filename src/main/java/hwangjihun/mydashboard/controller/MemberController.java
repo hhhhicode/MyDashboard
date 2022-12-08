@@ -2,6 +2,7 @@ package hwangjihun.mydashboard.controller;
 
 import hwangjihun.mydashboard.domain.memberconst.SessionConst;
 import hwangjihun.mydashboard.model.Member;
+import hwangjihun.mydashboard.model.MemberAddDto;
 import hwangjihun.mydashboard.model.MemberLoginDto;
 import hwangjihun.mydashboard.model.MemberSessionDto;
 import hwangjihun.mydashboard.service.MemberService;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -45,12 +48,15 @@ public class MemberController {
     public String login(HttpServletRequest request,
                         @Validated @ModelAttribute MemberLoginDto memberLoginDto, BindingResult bindingResult) {
 
+        Member loginMember = memberService.loginRequest(memberLoginDto);
+        if (loginMember.getId() == null) {
+            bindingResult.addError(new ObjectError("memberLoginDto", new String[]{"login"}, null, null));
+        }
         if (bindingResult.hasErrors()) {
             return "members/login";
         }
 
-        Member loginMember = memberService.loginRequest(memberLoginDto);
-        log.info("loginMember={}", loginMember);
+
         if (loginMember.getId() != null) {
             MemberSessionDto memberSessionDto = memberService.memberToMemberSessionDto(loginMember);
 
@@ -71,5 +77,33 @@ public class MemberController {
         String preUri = request.getHeader("REFERER") == null ? homeUri : request.getHeader("REFERER");
 
         return "redirect:" + preUri;
+    }
+
+    @GetMapping("/add")
+    public String addForm(@ModelAttribute("memberAddDto") MemberAddDto memberAddDto) {
+
+        return "members/add";
+    }
+
+    @PostMapping("/add")
+    public String add(@Validated @ModelAttribute MemberAddDto memberAddDto, BindingResult bindingResult) {
+
+        Boolean isUserIdDuplicate = memberService.isUseridDuplicate(memberAddDto.getUserId());
+        if (isUserIdDuplicate) {
+            bindingResult.addError(new FieldError("memberAddDto", "userId", memberAddDto.getUserId(),
+                    false, new String[]{"userIdDuplicate"}, null, null));
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "members/add";
+        }
+
+        Member addMember = memberService.addRequest(memberAddDto);
+
+        if (addMember == null || addMember.getId() == null) {
+            return "members/add";
+        }
+
+        return "redirect:/members/login";
     }
 }

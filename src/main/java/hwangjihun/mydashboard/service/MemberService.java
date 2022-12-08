@@ -1,6 +1,7 @@
 package hwangjihun.mydashboard.service;
 
 import hwangjihun.mydashboard.model.Member;
+import hwangjihun.mydashboard.model.MemberAddDto;
 import hwangjihun.mydashboard.model.MemberLoginDto;
 import hwangjihun.mydashboard.model.MemberSessionDto;
 import hwangjihun.mydashboard.repository.feign.MemberClient;
@@ -20,6 +21,16 @@ public class MemberService {
     public Member loginRequest(MemberLoginDto memberLoginDto) {
 
         return memberClient.loginClient(memberLoginDto);
+    }
+
+    public Member addRequest(MemberAddDto memberAddDto) {
+
+        return memberClient.addClient(memberAddDto);
+    }
+
+    public Boolean isUseridDuplicate(String userId) {
+
+        return Boolean.parseBoolean(memberClient.userIdExistCheckClient(userId));
     }
 
     public MemberSessionDto memberToMemberSessionDto(Member member) {
