@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nav bars</title>
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/js/bootstrap.bundle.js"></script>
+</head>
+<body>
+<div th:fragment="common_navbar">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="user-select: auto;">
+    <div class="container-fluid" style="user-select: auto;">
+      <a class="navbar-brand" href="#" style="user-select: auto;">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="user-select: auto;">
+        <span class="navbar-toggler-icon" style="user-select: auto;"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor01" style="user-select: auto;">
+        <ul class="navbar-nav me-auto" style="user-select: auto;">
+          <li class="nav-item" style="user-select: auto;">
+            <a class="nav-link active" href="#" style="user-select: auto;">Home
+              <span class="visually-hidden" style="user-select: auto;">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item" style="user-select: auto;">
+            <a class="nav-link" href="#" style="user-select: auto;">Features</a>
+          </li>
+          <li class="nav-item" style="user-select: auto;">
+            <a class="nav-link" href="#" style="user-select: auto;">Pricing</a>
+          </li>
+          <li class="nav-item" style="user-select: auto;">
+            <a class="nav-link" href="#" style="user-select: auto;">About</a>
+          </li>
+          <li class="nav-item dropdown" style="user-select: auto;">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="user-select: auto;">Dropdown</a>
+            <div class="dropdown-menu" style="user-select: auto;">
+              <a class="dropdown-item" href="#" style="user-select: auto;">Action</a>
+              <a class="dropdown-item" href="#" style="user-select: auto;">Another action</a>
+              <a class="dropdown-item" href="#" style="user-select: auto;">Something else here</a>
+              <div class="dropdown-divider" style="user-select: auto;"></div>
+              <a class="dropdown-item" href="#" style="user-select: auto;">Separated link</a>
+            </div>
+          </li>
+          <li id="li1" class="nav-item dropdown"
+              th:if="${#session == null or #session.getAttribute('loginMemberId') == null}">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+              Account</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" th:href="@{/members/add}">Sign Up</a>
+              <a class="dropdown-item" th:href="@{/members/login}">Log In</a>
+            </div>
+          </li>
+          <li id="li2" class="nav-item dropdown"
+              th:if="${#session != null and #session.getAttribute('loginMemberId') != null}">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+               th:text="${#session.getAttribute('loginMemberId').userName}">이름</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" th:href="@{/members/profile}">Profile</a>
+              <a class="dropdown-item" th:href="@{/members/logout}">Log Out</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+</body>
+</html>

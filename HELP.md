@@ -1,20 +1,15 @@
-# Read Me First
-The following was discovered as part of building this project:
-
-* The JVM level was changed from '11' to '17', review the [JDK Version Range](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Versions#jdk-version-range) on the wiki for more details.
-
 # Getting Started
 
 ### Reference Documentation
 For further reference, please consider the following sections:
 
 * [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.0.0/gradle-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.0.0/gradle-plugin/reference/html/#build-image)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/3.0.0/reference/htmlsingle/#web)
-* [Thymeleaf](https://docs.spring.io/spring-boot/docs/3.0.0/reference/htmlsingle/#web.servlet.spring-mvc.template-engines)
+* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.7.6/gradle-plugin/reference/html/)
+* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.7.6/gradle-plugin/reference/html/#build-image)
+* [Spring Web](https://docs.spring.io/spring-boot/docs/2.7.6/reference/htmlsingle/#web)
+* [Thymeleaf](https://docs.spring.io/spring-boot/docs/2.7.6/reference/htmlsingle/#web.servlet.spring-mvc.template-engines)
 * [MyBatis Framework](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)
-* [Validation](https://docs.spring.io/spring-boot/docs/3.0.0/reference/htmlsingle/#io.validation)
+* [Validation](https://docs.spring.io/spring-boot/docs/2.7.6/reference/htmlsingle/#io.validation)
 * [OpenFeign](https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/)
 
 ### Guides
