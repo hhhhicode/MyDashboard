@@ -23,6 +23,9 @@
         <form action="" th:accept method="post" th:object="${memberAddDto}">
             <fieldset>
                 <legend>Sign Up</legend>
+                <div th:if="${#fields.hasGlobalErrors()}">
+                    <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">Global Error Messages</p>
+                </div>
                 <!--userId-->
                 <div class="form-group">
                     <label for="userId" class="form-label mt-4">ID</label>
@@ -68,7 +71,7 @@
                 <!--Submit-->
                 <div style="padding-top: 0.5rem">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a class="btn btn-light" th:href="@{${#request.getAttribute('preUri')}}">Cancel</a>
+                    <a class="btn btn-light" th:href="@{/}">Cancel</a>
                 </div>
             </fieldset>
         </form>

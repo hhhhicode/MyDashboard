@@ -13,7 +13,7 @@
 <div th:fragment="common_navbar">
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="user-select: auto;">
     <div class="container-fluid" style="user-select: auto;">
-      <a class="navbar-brand" href="#" style="user-select: auto;">Navbar</a>
+      <a class="navbar-brand" th:href="@{/}" style="user-select: auto;">MyDashboard</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="user-select: auto;">
         <span class="navbar-toggler-icon" style="user-select: auto;"></span>
       </button>
@@ -25,10 +25,10 @@
             </a>
           </li>
           <li class="nav-item" style="user-select: auto;">
-            <a class="nav-link" href="#" style="user-select: auto;">Features</a>
+            <a class="nav-link" th:href="@{/poeitemvalues/dashboard}" style="user-select: auto;">P.I.V</a>
           </li>
           <li class="nav-item" style="user-select: auto;">
-            <a class="nav-link" href="#" style="user-select: auto;">Pricing</a>
+            <a class="nav-link" th:href="@{/errorcenter/dashboard}" style="user-select: auto;">Error Center</a>
           </li>
           <li class="nav-item" style="user-select: auto;">
             <a class="nav-link" href="#" style="user-select: auto;">About</a>
