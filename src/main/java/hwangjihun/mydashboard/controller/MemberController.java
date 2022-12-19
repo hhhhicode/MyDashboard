@@ -117,22 +117,20 @@ public class MemberController {
         return "members/profile";
     }
 
-    @PostMapping("/delete")
+    @GetMapping("/delete")
     public String delete(HttpServletRequest request,
-                         @ModelAttribute Member member, BindingResult bindingResult,
-                         RedirectAttributes redirectAttributes) {
+                         @ModelAttribute MemberProfileDto memberProfileDto) {
 
+        //Session Validation
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return "";
+            return "redirect:members/login";
         }
 
         MemberSessionDto memberSessionDto = (MemberSessionDto) session.getAttribute(SessionConst.LOGIN_MEMBER_ID);
-        Boolean resultBoolean = memberService.memberDelete(memberSessionDto.getUserId());
-        if (!resultBoolean) {
-            bindingResult.reject("fail", "계정 삭제 실패.");
-            return "";
-        }
+        memberService.memberDelete(memberSessionDto.getUserId());
+
+        session.invalidate();
 
         return "redirect:/";
     }
