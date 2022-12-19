@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/js/bootstrap.bundle.js"></script>
+</head>
+<body>
+<div id="main-contents">
+  <div id="member-profile">
+    <legend>Profile</legend>
+    <div id="member-profile-content" th:object="${memberProfileDto}">
+      <div id="user-icon" class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">ICON</div>
+        <div class="card-body">
+          <span th:text="|ICON 추가 예정|">Icon</span>
+        </div>
+      </div>
+      <div id="user-id" class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">ID</div>
+        <div class="card-body">
+          <span th:field="*{userId}" th:text="*{userId}">User Id</span>
+        </div>
+      </div>
+      <div id="user-name" class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Name</div>
+        <div class="card-body">
+          <span th:field="*{userName}" th:text="*{userName}">Name</span>
+        </div>
+      </div>
+      <div id="user-email-address" class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Email</div>
+        <div class="card-body">
+          <span th:field="*{emailAddress}" th:text="*{emailAddress}">Email</span>
+        </div>
+      </div>
+      <div id="user-display-programs" class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Display Programs</div>
+        <div class="card-body">
+          <span th:field="*{displayPrograms}" th:text="*{displayPrograms}">Display Programs</span>
+        </div>
+      </div>
+      <div id="user-memo" class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Memo</div>
+        <div class="card-body">
+          <span th:field="*{memo}" th:text="*{memo}">Memo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="recall-button">
+    <a class="btn btn-primary btn-lg" style="user-select: auto;"
+       th:href="@{${homeUri}}">돌아가기</a>
+    <a class="btn btn-primary btn-lg" style="user-select: auto;"
+       th:href="@{/members/{userId}/update(userId=${userId}, homeUri = ${homeUri})}">수정하기</a>
+  </div>
+</div>
+</body>
+</html>

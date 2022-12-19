@@ -1,10 +1,7 @@
 package hwangjihun.mydashboard.controller;
 
 import hwangjihun.mydashboard.domain.memberconst.SessionConst;
-import hwangjihun.mydashboard.model.Member;
-import hwangjihun.mydashboard.model.MemberAddDto;
-import hwangjihun.mydashboard.model.MemberLoginDto;
-import hwangjihun.mydashboard.model.MemberSessionDto;
+import hwangjihun.mydashboard.model.*;
 import hwangjihun.mydashboard.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,10 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -105,5 +99,41 @@ public class MemberController {
         }
 
         return "redirect:/members/login";
+    }
+
+    @GetMapping("/profile/{userId}")
+    public String profileForm(@PathVariable String userId,
+                              HttpServletRequest request,
+                              Model model) {
+
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "redirect:/";
+        }
+
+        MemberProfileDto memberProfileDto = memberService.profileRequest(userId);
+        model.addAttribute("memberProfileDto", memberProfileDto);
+
+        return "members/profile";
+    }
+
+    @PostMapping("/delete")
+    public String delete(HttpServletRequest request,
+                         @ModelAttribute Member member, BindingResult bindingResult,
+                         RedirectAttributes redirectAttributes) {
+
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "";
+        }
+
+        MemberSessionDto memberSessionDto = (MemberSessionDto) session.getAttribute(SessionConst.LOGIN_MEMBER_ID);
+        Boolean resultBoolean = memberService.memberDelete(memberSessionDto.getUserId());
+        if (!resultBoolean) {
+            bindingResult.reject("fail", "계정 삭제 실패.");
+            return "";
+        }
+
+        return "redirect:/";
     }
 }

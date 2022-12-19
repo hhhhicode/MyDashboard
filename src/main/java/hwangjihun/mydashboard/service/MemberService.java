@@ -1,9 +1,6 @@
 package hwangjihun.mydashboard.service;
 
-import hwangjihun.mydashboard.model.Member;
-import hwangjihun.mydashboard.model.MemberAddDto;
-import hwangjihun.mydashboard.model.MemberLoginDto;
-import hwangjihun.mydashboard.model.MemberSessionDto;
+import hwangjihun.mydashboard.model.*;
 import hwangjihun.mydashboard.repository.feign.MemberClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,6 +13,10 @@ public class MemberService {
 
     public MemberService(MemberClient memberClient) {
         this.memberClient = memberClient;
+    }
+
+    public MemberProfileDto profileRequest(String userId) {
+        return memberClient.findByUserIdForProfileClient(userId);
     }
 
     public Member loginRequest(MemberLoginDto memberLoginDto) {
@@ -42,5 +43,10 @@ public class MemberService {
         memberSessionDto.setDisplayPrograms(member.getDisplayPrograms());
 
         return memberSessionDto;
+    }
+
+    public Boolean memberDelete(String userId) {
+
+        return memberClient.deleteClient(userId);
     }
 }
